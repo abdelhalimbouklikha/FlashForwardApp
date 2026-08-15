@@ -1,0 +1,146 @@
+import Foundation
+import SwiftData
+import SwiftUI
+
+// MARK: - Enums
+
+enum CardState: Int, Codable {
+    case new = 0
+    case learning = 1
+    case review = 2
+    case relearning = 3
+}
+
+enum Rating: Int, Codable, CaseIterable {
+    case again = 1
+    case hard = 2
+    case good = 3
+    case easy = 4
+
+    var label: String {
+        switch self {
+        case .again: return "Again"
+        case .hard: return "Hard"
+        case .good: return "Good"
+        case .easy: return "Easy"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .again: return AppTheme.againColor
+        case .hard: return AppTheme.hardColor
+        case .good: return AppTheme.goodColor
+        case .easy: return AppTheme.easyColor
+        }
+    }
+}
+
+// MARK: - Deck
+
+@Model
+final class Deck {
+    @Attribute(.unique) var id: UUID
+    var name: String
+    var createdAt: Date
+    @Relationship(deleteRule: .cascade, inverse: \Card.deck)
+    var cards: [Card]
+
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
+        self.createdAt = Date()
+        self.cards = []
+    }
+
+    var dueCount: Int {
+        cards.filter { $0.isDue }.count
+    }
+
+    var newCount: Int {
+        cards.filter { $0.state == .new }.count
+    }
+}
+
+// MARK: - Card
+
+@Model
+final class Card {
+    @Attribute(.unique) var id: UUID
+    var front: String
+    var back: String
+    var deck: Deck?
+    var createdAt: Date
+
+    // FSRS scheduling fields
+    var stability: Double
+    var difficulty: Double
+    var reps: Int
+    var lapses: Int
+    var stateValue: Int
+    var scheduledDays: Int
+    var due: Date
+    var lastReview: Date?
+
+    var state: CardState {
+        get { CardState(rawValue: stateValue) ?? .new }
+        set { stateValue = newValue.rawValue }
+    }
+
+    var isDue: Bool {
+        due <= Date()
+    }
+
+    init(front: String, back: String, deck: Deck? = nil) {
+        self.id = UUID()
+        self.front = front
+        self.back = back
+        self.deck = deck
+        self.createdAt = Date()
+        self.stability = 0
+        self.difficulty = 0
+        self.reps = 0
+        self.lapses = 0
+        self.stateValue = CardState.new.rawValue
+        self.scheduledDays = 0
+        self.due = Date()
+        self.lastReview = nil
+    }
+}
+
+// MARK: - ReviewLog
+
+@Model
+final class ReviewLog {
+    @Attribute(.unique) var id: UUID
+    var card: Card?
+    var ratingValue: Int
+    var reviewTime: Date
+    var stateBeforeValue: Int
+    var stabilityBefore: Double
+    var difficultyBefore: Double
+    var elapsedDays: Int
+    var scheduledDaysBefore: Int
+
+    var rating: Rating {
+        Rating(rawValue: ratingValue) ?? .good
+    }
+
+    var stateBefore: CardState {
+        CardState(rawValue: stateBeforeValue) ?? .new
+    }
+
+    init(card: Card, rating: Rating, stateBefore: CardState,
+         stabilityBefore: Double, difficultyBefore: Double,
+         elapsedDays: Int, scheduledDaysBefore: Int) {
+        self.id = UUID()
+        self.card = card
+        self.ratingValue = rating.rawValue
+        self.reviewTime = Date()
+        self.stateBeforeValue = stateBefore.rawValue
+        self.stabilityBefore = stabilityBefore
+        self.difficultyBefore = difficultyBefore
+        self.elapsedDays = elapsedDays
+        self.scheduledDaysBefore = scheduledDaysBefore
+    }
+}
