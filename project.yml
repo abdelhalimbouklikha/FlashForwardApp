@@ -1,0 +1,19 @@
+name: FlashForwardApp
+options:
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  FlashForwardApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: .
+        excludes:
+          - "project.yml"
+          - "codemagic.yaml"
+          - "*.md"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.abdelhalim.FlashForwardApp
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"

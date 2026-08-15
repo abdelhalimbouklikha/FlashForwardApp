@@ -1,0 +1,27 @@
+workflows:
+  ios-workflow:
+    name: FlashForwardApp Unsigned Build
+    max_build_duration: 60
+    environment:
+      xcode: latest
+    scripts:
+      - name: Install XcodeGen
+        script: brew install xcodegen
+      - name: Generate Xcode project
+        script: xcodegen generate
+      - name: Build unsigned app
+        script: |
+          xcodebuild -project FlashForwardApp.xcodeproj \
+            -scheme FlashForwardApp \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO \
+            -derivedDataPath build \
+            clean build
+      - name: Package IPA
+        script: |
+          mkdir -p build/Payload
+          cp -r build/Build/Products/Release-iphoneos/FlashForwardApp.app build/Payload/
+          cd build && zip -r FlashForwardApp.ipa Payload
+    artifacts:
+      - build/FlashForwardApp.ipa
