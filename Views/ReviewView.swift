@@ -6,6 +6,7 @@ struct ReviewView: View {
     let deck: Deck
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var settings: AppSettings
 
     @State private var queue: [Card] = []
     @State private var currentIndex: Int = 0
@@ -17,7 +18,19 @@ struct ReviewView: View {
     @State private var goodCount: Int = 0
     @State private var easyCount: Int = 0
 
-    private let fsrs = FSRS()
+    // Countdown
+    @State private var countdownRemaining: Int = 0
+    @State private var countdownExpired: Bool = false
+    private let countdownPublisher = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    private var fsrs: FSRS {
+        FSRS(
+            multAgain: settings.multAgain,
+            multHard: settings.multHard,
+            multGood: settings.multGood,
+            multEasy: settings.multEasy
+        )
+    }
 
     private var currentCard: Card? {
         guard currentIndex < queue.count else { return nil }
@@ -39,17 +52,29 @@ struct ReviewView: View {
             } else {
                 EmptyStateView(
                     icon: "checkmark.seal.fill",
-                    title: "All Caught Up!",
-                    message: "No cards are due in this deck right now. Come back later or add new cards.",
-                    actionTitle: "Done",
+                    title: L("review.allCaughtUp"),
+                    message: L("review.allCaughtUpMsg"),
+                    actionTitle: L("common.done"),
                     action: { dismiss() }
                 )
             }
         }
         .primaryGradientBackground()
-        .preferredColorScheme(.dark)
-        .onAppear {
-            loadCards()
+        .preferredColorScheme(AppTheme.preferredColorScheme)
+        .onAppear { loadCards() }
+        .onReceive(countdownPublisher) { _ in
+            guard settings.countdownEnabled,
+                  !sessionComplete,
+                  currentCard != nil,
+                  countdownRemaining > 0 else { return }
+            countdownRemaining -= 1
+            if countdownRemaining == 0 {
+                countdownExpired = true
+                haptic(.light)
+            }
+        }
+        .onChange(of: currentIndex) { _, _ in
+            resetCountdown()
         }
     }
 
@@ -89,6 +114,10 @@ struct ReviewView: View {
                     .clipShape(Circle())
             }
 
+            if settings.countdownEnabled {
+                countdownRing
+            }
+
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 4)
@@ -118,11 +147,47 @@ struct ReviewView: View {
         .padding(.bottom, AppTheme.spacingS)
     }
 
+    // MARK: - Countdown Ring
+
+    private var countdownRing: some View {
+        let total = max(1, settings.countdownSeconds)
+        let progress = Double(countdownRemaining) / Double(total)
+
+        return ZStack {
+            Circle()
+                .stroke(AppTheme.surfaceElevated, lineWidth: 3)
+
+            Circle()
+                .trim(from: 0, to: max(0, progress))
+                .stroke(
+                    countdownExpired ? AppTheme.danger : AppTheme.accent,
+                    style: StrokeStyle(lineWidth: 3, lineCap: .round)
+                )
+                .rotationEffect(.degrees(-90))
+                .animation(.linear(duration: 0.4), value: countdownRemaining)
+
+            Text("\(countdownRemaining)")
+                .font(AppTheme.mono(10))
+                .foregroundColor(countdownExpired ? AppTheme.danger : AppTheme.textSecondary)
+        }
+        .frame(width: 34, height: 34)
+        .scaleEffect(countdownExpired ? 1.15 : 1.0)
+        .animation(
+            countdownExpired
+                ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true)
+                : .default,
+            value: countdownExpired
+        )
+    }
+
     // MARK: - Card View
 
     private func cardView(card: Card) -> some View {
         ZStack {
-            cardFace(text: card.front, label: "Question", icon: "questionmark.circle.fill")
+            cardFace(text: card.front,
+                     imageData: card.frontImageData,
+                     label: L("review.question"),
+                     icon: "questionmark.circle.fill")
                 .rotation3DEffect(
                     .degrees(isFlipped ? 180 : 0),
                     axis: (x: 0, y: 1, z: 0),
@@ -130,7 +195,10 @@ struct ReviewView: View {
                 )
                 .opacity(isFlipped ? 0 : 1)
 
-            cardFace(text: card.back, label: "Answer", icon: "lightbulb.fill")
+            cardFace(text: card.back,
+                     imageData: card.backImageData,
+                     label: L("review.answer"),
+                     icon: "lightbulb.fill")
                 .rotation3DEffect(
                     .degrees(isFlipped ? 0 : -180),
                     axis: (x: 0, y: 1, z: 0),
@@ -146,7 +214,8 @@ struct ReviewView: View {
         }
     }
 
-    private func cardFace(text: String, label: String, icon: String) -> some View {
+    private func cardFace(text: String, imageData: Data?,
+                          label: String, icon: String) -> some View {
         VStack(spacing: AppTheme.spacingL) {
             HStack(spacing: AppTheme.spacingS) {
                 Image(systemName: icon)
@@ -159,11 +228,22 @@ struct ReviewView: View {
                     .tracking(1.5)
             }
 
-            Text(text)
-                .font(AppTheme.title(24))
-                .foregroundColor(AppTheme.textPrimary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, AppTheme.spacingL)
+            if let data = imageData, let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxHeight: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: AppTheme.radiusM,
+                                                style: .continuous))
+            }
+
+            if !text.isEmpty {
+                Text(text)
+                    .font(AppTheme.reviewFont(24))
+                    .foregroundColor(AppTheme.textPrimary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, AppTheme.spacingL)
+            }
         }
         .frame(maxWidth: .infinity, minHeight: 380)
         .padding(AppTheme.spacingXL)
@@ -187,12 +267,12 @@ struct ReviewView: View {
     private func ratingButtons(previews: [Rating: ScheduledCard]) -> some View {
         VStack(spacing: AppTheme.spacingS) {
             if !isFlipped {
-                Text("Tap card to reveal answer")
+                Text(L("review.tapToReveal"))
                     .font(AppTheme.caption(14))
                     .foregroundColor(AppTheme.textTertiary)
                     .padding(.bottom, AppTheme.spacingS)
             } else {
-                Text("How well did you remember?")
+                Text(L("review.howWell"))
                     .font(AppTheme.caption(14))
                     .foregroundColor(AppTheme.textSecondary)
                     .padding(.bottom, AppTheme.spacingS)
@@ -265,20 +345,20 @@ struct ReviewView: View {
             }
 
             VStack(spacing: AppTheme.spacingS) {
-                Text("Session Complete!")
+                Text(L("review.sessionComplete"))
                     .font(AppTheme.title(28))
                     .foregroundColor(AppTheme.textPrimary)
 
-                Text("You reviewed \(reviewedCount) card\(reviewedCount == 1 ? "" : "s")")
+                Text(String(format: L("review.cardsReviewed"), reviewedCount))
                     .font(AppTheme.body(16))
                     .foregroundColor(AppTheme.textSecondary)
             }
 
             VStack(spacing: AppTheme.spacingM) {
-                ratingBreakdownRow(label: "Again", count: againCount, color: AppTheme.againColor)
-                ratingBreakdownRow(label: "Hard", count: hardCount, color: AppTheme.hardColor)
-                ratingBreakdownRow(label: "Good", count: goodCount, color: AppTheme.goodColor)
-                ratingBreakdownRow(label: "Easy", count: easyCount, color: AppTheme.easyColor)
+                ratingBreakdownRow(label: L("rating.again"), count: againCount, color: AppTheme.againColor)
+                ratingBreakdownRow(label: L("rating.hard"), count: hardCount, color: AppTheme.hardColor)
+                ratingBreakdownRow(label: L("rating.good"), count: goodCount, color: AppTheme.goodColor)
+                ratingBreakdownRow(label: L("rating.easy"), count: easyCount, color: AppTheme.easyColor)
             }
             .padding(AppTheme.spacingL)
             .background(AppTheme.surface)
@@ -290,7 +370,7 @@ struct ReviewView: View {
             Button {
                 dismiss()
             } label: {
-                Text("Done")
+                Text(L("common.done"))
                     .font(AppTheme.heading(17))
                     .frame(maxWidth: .infinity)
                     .violetAccentButton()
@@ -325,6 +405,12 @@ struct ReviewView: View {
     private func loadCards() {
         let dueCards = deck.cards.filter { $0.isDue }
         queue = dueCards.shuffled()
+        resetCountdown()
+    }
+
+    private func resetCountdown() {
+        countdownRemaining = settings.countdownEnabled ? settings.countdownSeconds : 0
+        countdownExpired = false
     }
 
     private func grade(rating: Rating) {

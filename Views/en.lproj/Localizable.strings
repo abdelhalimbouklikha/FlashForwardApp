@@ -1,0 +1,284 @@
+/* FlashForwardApp — English */
+
+/* MARK: - Common */
+"common.cancel" = "Cancel";
+"common.delete" = "Delete";
+"common.create" = "Create";
+"common.save" = "Save";
+"common.done" = "Done";
+"common.ok" = "OK";
+"common.edit" = "Edit";
+
+/* MARK: - Tabs */
+"tab.decks" = "Decks";
+"tab.cards" = "Cards";
+"tab.settings" = "Settings";
+
+/* MARK: - Rating */
+"rating.again" = "Again";
+"rating.hard" = "Hard";
+"rating.good" = "Good";
+"rating.easy" = "Easy";
+
+/* MARK: - Card State */
+"state.new" = "New";
+"state.learning" = "Learning";
+"state.review" = "Review";
+"state.relearning" = "Relearning";
+
+/* MARK: - Themes */
+"theme.midnight" = "Midnight";
+"theme.ocean" = "Ocean";
+"theme.sunset" = "Sunset";
+"theme.forest" = "Forest";
+"theme.graphite" = "Graphite";
+"theme.light" = "Light";
+
+/* MARK: - Fonts */
+"font.rounded" = "Rounded";
+"font.serif" = "Serif";
+"font.mono" = "Monospaced";
+"font.standard" = "Standard";
+
+/* MARK: - Decks Screen */
+"decks.empty.title" = "No Decks Yet";
+"decks.empty.message" = "Create your first deck to start learning with spaced repetition powered by FSRS.";
+"decks.create" = "Create Deck";
+"decks.select" = "Select";
+"decks.selectAll" = "Select All";
+"decks.deselectAll" = "Deselect All";
+"decks.cards" = "cards";
+"decks.due" = "due";
+"decks.schedule" = "Schedule";
+"decks.delete.title" = "Delete Deck?";
+"decks.delete.message" = "This will permanently delete \"%@\" and all %d cards in it.";
+"decks.group.title" = "New Folder";
+"decks.group.placeholder" = "Folder name";
+"decks.group.message" = "Group the selected decks into a new folder. Each deck can belong to only one folder.";
+"decks.group.n" = "Group %d Decks";
+
+/* MARK: - Deck Detail */
+"detail.due" = "Due";
+"detail.total" = "Total";
+"detail.new" = "New";
+"detail.reviewAll" = "Review All Cards";
+"detail.startReview" = "Start Review";
+"detail.cards" = "Cards";
+"detail.noCards" = "No cards yet";
+"detail.addCard" = "Add Card";
+
+/* MARK: - Add/Edit Deck */
+"deck.name" = "Deck Name";
+"deck.color" = "Color";
+"deck.folder" = "Folder";
+"deck.folder.none" = "None";
+"deck.newFolder" = "New Folder";
+"deck.rename" = "Rename Deck";
+"deck.new" = "New Deck";
+
+/* MARK: - Add/Edit Card */
+"card.front" = "Front";
+"card.back" = "Back";
+"card.frontPlaceholder" = "What do you want to remember?";
+"card.backPlaceholder" = "The answer or explanation...";
+"card.reviews" = "Reviews";
+"card.lapses" = "Lapses";
+"card.interval" = "Interval";
+"card.edit" = "Edit Card";
+"card.new" = "New Card";
+
+/* MARK: - Cards Tab */
+"cards.search" = "Search cards, decks, folders...";
+"cards.filter.all" = "All";
+"cards.filter.studied" = "Studied";
+"cards.filter.notStudied" = "Not Studied";
+"cards.filter.new" = "New";
+"cards.allDecks" = "All Decks";
+"cards.allFolders" = "Folders";
+"cards.empty" = "No cards match your search.";
+
+/* MARK: - Import */
+"import.result.title" = "Import Complete";
+"import.result.message" = "Created %d folders, %d decks, and %d cards.";
+
+/* MARK: - Schedule */
+"schedule.title" = "Schedule Revision";
+"schedule.deck" = "Schedule a revision for \"%@\"";
+"schedule.date" = "Date & Time";
+"schedule.addToCalendar" = "Add to iPhone Calendar";
+"schedule.create" = "Schedule";
+"schedule.calendarDenied" = "Calendar Access Denied";
+"schedule.calendarDeniedMsg" = "Enable calendar access in Settings to create revision events.";
+"schedule.openSettings" = "Open Settings";
+
+/* MARK: - Settings */
+"settings.title" = "Settings";
+"settings.general" = "General";
+"settings.language" = "Language";
+"settings.language.english" = "English";
+"settings.language.french" = "French";
+"settings.display" = "Display";
+"settings.theme" = "Theme";
+"settings.font" = "Review Font";
+"settings.countdown" = "Countdown Timer";
+"settings.countdown.desc" = "Show a per-card countdown during review.";
+"settings.countdown.seconds" = "Duration";
+"settings.review" = "Review";
+"settings.multipliers" = "Interval Multipliers";
+"settings.multipliers.desc" = "Adjust how long before a card returns, per rating. 1.0× = FSRS default.";
+"settings.reset" = "Reset to Defaults";
+"settings.about" = "About";
+"settings.about.version" = "Version";
+
+/* MARK: - Review */
+"review.tapToReveal" = "Tap card to reveal answer";
+"review.howWell" = "How well did you remember?";
+"review.sessionComplete" = "Session Complete!";
+"review.cardsReviewed" = "You reviewed %d cards";
+"review.allCaughtUp" = "All Caught Up!";
+"review.allCaughtUpMsg" = "No cards are due in this deck right now. Come back later or add new cards.";
+"review.question" = "Question";
+"review.answer" = "Answer";
+"review.countdown" = "Countdown";
+/* FlashForwardApp — Français */
+
+/* MARK: - Common */
+"common.cancel" = "Annuler";
+"common.delete" = "Supprimer";
+"common.create" = "Créer";
+"common.save" = "Enregistrer";
+"common.done" = "Terminé";
+"common.ok" = "OK";
+"common.edit" = "Modifier";
+
+/* MARK: - Tabs */
+"tab.decks" = "Paquets";
+"tab.cards" = "Cartes";
+"tab.settings" = "Réglages";
+
+/* MARK: - Rating */
+"rating.again" = "À refaire";
+"rating.hard" = "Difficile";
+"rating.good" = "Correct";
+"rating.easy" = "Facile";
+
+/* MARK: - Card State */
+"state.new" = "Nouveau";
+"state.learning" = "Apprentissage";
+"state.review" = "Révision";
+"state.relearning" = "Réapprentissage";
+
+/* MARK: - Themes */
+"theme.midnight" = "Minuit";
+"theme.ocean" = "Océan";
+"theme.sunset" = "Coucher de soleil";
+"theme.forest" = "Forêt";
+"theme.graphite" = "Graphite";
+"theme.light" = "Clair";
+
+/* MARK: - Fonts */
+"font.rounded" = "Arrondi";
+"font.serif" = "Serif";
+"font.mono" = "Chasse fixe";
+"font.standard" = "Standard";
+
+/* MARK: - Decks Screen */
+"decks.empty.title" = "Aucun paquet";
+"decks.empty.message" = "Créez votre premier paquet pour commencer à apprendre avec la répétition espacée propulsée par FSRS.";
+"decks.create" = "Créer un paquet";
+"decks.select" = "Sélectionner";
+"decks.selectAll" = "Tout sélectionner";
+"decks.deselectAll" = "Tout désélectionner";
+"decks.cards" = "cartes";
+"decks.due" = "à réviser";
+"decks.schedule" = "Planifier";
+"decks.delete.title" = "Supprimer le paquet ?";
+"decks.delete.message" = "Cela supprimera définitivement « %@ » et ses %d cartes.";
+"decks.group.title" = "Nouveau dossier";
+"decks.group.placeholder" = "Nom du dossier";
+"decks.group.message" = "Regrouper les paquets sélectionnés dans un nouveau dossier. Chaque paquet ne peut appartenir qu'à un seul dossier.";
+"decks.group.n" = "Regrouper %d paquets";
+
+/* MARK: - Deck Detail */
+"detail.due" = "À réviser";
+"detail.total" = "Total";
+"detail.new" = "Nouv.";
+"detail.reviewAll" = "Réviser toutes les cartes";
+"detail.startReview" = "Commencer la révision";
+"detail.cards" = "Cartes";
+"detail.noCards" = "Aucune carte";
+"detail.addCard" = "Ajouter une carte";
+
+/* MARK: - Add/Edit Deck */
+"deck.name" = "Nom du paquet";
+"deck.color" = "Couleur";
+"deck.folder" = "Dossier";
+"deck.folder.none" = "Aucun";
+"deck.newFolder" = "Nouveau dossier";
+"deck.rename" = "Renommer le paquet";
+"deck.new" = "Nouveau paquet";
+
+/* MARK: - Add/Edit Card */
+"card.front" = "Recto";
+"card.back" = "Verso";
+"card.frontPlaceholder" = "Que voulez-vous mémoriser ?";
+"card.backPlaceholder" = "La réponse ou l'explication...";
+"card.reviews" = "Révisions";
+"card.lapses" = "Oublis";
+"card.interval" = "Intervalle";
+"card.edit" = "Modifier la carte";
+"card.new" = "Nouvelle carte";
+
+/* MARK: - Cards Tab */
+"cards.search" = "Rechercher cartes, paquets, dossiers...";
+"cards.filter.all" = "Toutes";
+"cards.filter.studied" = "Étudiées";
+"cards.filter.notStudied" = "Non étudiées";
+"cards.filter.new" = "Nouvelles";
+"cards.allDecks" = "Tous les paquets";
+"cards.allFolders" = "Dossiers";
+"cards.empty" = "Aucune carte ne correspond à votre recherche.";
+
+/* MARK: - Import */
+"import.result.title" = "Importation terminée";
+"import.result.message" = "%d dossiers, %d paquets et %d cartes créés.";
+
+/* MARK: - Schedule */
+"schedule.title" = "Planifier une révision";
+"schedule.deck" = "Planifier une révision pour « %@ »";
+"schedule.date" = "Date et heure";
+"schedule.addToCalendar" = "Ajouter au calendrier iPhone";
+"schedule.create" = "Planifier";
+"schedule.calendarDenied" = "Accès au calendrier refusé";
+"schedule.calendarDeniedMsg" = "Activez l'accès au calendrier dans Réglages pour créer des événements de révision.";
+"schedule.openSettings" = "Ouvrir les réglages";
+
+/* MARK: - Settings */
+"settings.title" = "Réglages";
+"settings.general" = "Général";
+"settings.language" = "Langue";
+"settings.language.english" = "Anglais";
+"settings.language.french" = "Français";
+"settings.display" = "Affichage";
+"settings.theme" = "Thème";
+"settings.font" = "Police de révision";
+"settings.countdown" = "Minuteur";
+"settings.countdown.desc" = "Afficher un minuteur par carte pendant la révision.";
+"settings.countdown.seconds" = "Durée";
+"settings.review" = "Révision";
+"settings.multipliers" = "Multiplicateurs d'intervalle";
+"settings.multipliers.desc" = "Ajustez le délai avant qu'une carte revienne, par note. 1.0× = valeur FSRS par défaut.";
+"settings.reset" = "Réinitialiser";
+"settings.about" = "À propos";
+"settings.about.version" = "Version";
+
+/* MARK: - Review */
+"review.tapToReveal" = "Touchez la carte pour révéler la réponse";
+"review.howWell" = "Avez-vous bien retenu ?";
+"review.sessionComplete" = "Session terminée !";
+"review.cardsReviewed" = "Vous avez révisé %d cartes";
+"review.allCaughtUp" = "Tout est à jour !";
+"review.allCaughtUpMsg" = "Aucune carte n'est à réviser dans ce paquet pour le moment. Revenez plus tard ou ajoutez de nouvelles cartes.";
+"review.question" = "Question";
+"review.answer" = "Réponse";
+"review.countdown" = "Minuteur";

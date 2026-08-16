@@ -18,6 +18,15 @@ struct FSRS {
     var requestRetention: Double = 0.9
     var maximumInterval: Double = 36500
 
+    /// User-adjustable interval multipliers (1.0 = FSRS default). Fed in from
+    /// `AppSettings` by the caller. Applied to the final `scheduledDays` for
+    /// intervals > 0 (i.e. Good / Easy / Hard-in-review). Learning steps
+    /// (10-minute relearn) are unaffected since their scheduledDays is 0.
+    var multAgain: Double = 1.0
+    var multHard: Double = 1.0
+    var multGood: Double = 1.0
+    var multEasy: Double = 1.0
+
     /// Full FSRS-5 default weight array (19 weights).
     var w: [Double] = [
         0.40255,  // 0
@@ -40,6 +49,15 @@ struct FSRS {
         0.51655,  // 17
         0.6621    // 18
     ]
+
+    private func multiplier(for rating: Rating) -> Double {
+        switch rating {
+        case .again: return multAgain
+        case .hard:  return multHard
+        case .good:  return multGood
+        case .easy:  return multEasy
+        }
+    }
 
     // MARK: - Main Review Function
 
@@ -161,6 +179,15 @@ struct FSRS {
                 result.scheduledDays = max(stabilityInterval, Int(Double(prevInterval) * 1.3))
                 result.due = now.addingTimeInterval(Double(result.scheduledDays) * 86400.0)
             }
+        }
+
+        // ------------------------------------------------------------------
+        // Apply user-adjustable interval multiplier (only for intervals > 0)
+        // ------------------------------------------------------------------
+        if result.scheduledDays > 0 {
+            let scaled = Double(result.scheduledDays) * multiplier(for: rating)
+            result.scheduledDays = max(1, Int(round(scaled)))
+            result.due = now.addingTimeInterval(Double(result.scheduledDays) * 86400.0)
         }
 
         // Clamp to maximum interval

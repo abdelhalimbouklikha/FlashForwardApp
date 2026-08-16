@@ -19,20 +19,38 @@ enum Rating: Int, Codable, CaseIterable {
 
     var label: String {
         switch self {
-        case .again: return "Again"
-        case .hard: return "Hard"
-        case .good: return "Good"
-        case .easy: return "Easy"
+        case .again: return L("rating.again")
+        case .hard:  return L("rating.hard")
+        case .good:  return L("rating.good")
+        case .easy:  return L("rating.easy")
         }
     }
 
     var color: Color {
         switch self {
         case .again: return AppTheme.againColor
-        case .hard: return AppTheme.hardColor
-        case .good: return AppTheme.goodColor
-        case .easy: return AppTheme.easyColor
+        case .hard:  return AppTheme.hardColor
+        case .good:  return AppTheme.goodColor
+        case .easy:  return AppTheme.easyColor
         }
+    }
+}
+
+// MARK: - DeckFolder (new)
+
+@Model
+final class DeckFolder {
+    @Attribute(.unique) var id: UUID
+    var name: String
+    var createdAt: Date
+
+    @Relationship(deleteRule: .nullify, inverse: \Deck.folder)
+    var decks: [Deck] = []
+
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
+        self.createdAt = Date()
     }
 }
 
@@ -42,15 +60,19 @@ enum Rating: Int, Codable, CaseIterable {
 final class Deck {
     @Attribute(.unique) var id: UUID
     var name: String
+    var colorHex: String = "7C3AED"
     var createdAt: Date
-    @Relationship(deleteRule: .cascade, inverse: \Card.deck)
-    var cards: [Card]
+    var folder: DeckFolder?
 
-    init(name: String) {
+    @Relationship(deleteRule: .cascade, inverse: \Card.deck)
+    var cards: [Card] = []
+
+    init(name: String, colorHex: String = "7C3AED", folder: DeckFolder? = nil) {
         self.id = UUID()
         self.name = name
+        self.colorHex = colorHex
         self.createdAt = Date()
-        self.cards = []
+        self.folder = folder
     }
 
     var dueCount: Int {
@@ -59,6 +81,11 @@ final class Deck {
 
     var newCount: Int {
         cards.filter { $0.state == .new }.count
+    }
+
+    /// Resolves the deck's color, falling back to the current theme accent.
+    var color: Color {
+        Color(hex: colorHex) ?? AppTheme.accent
     }
 }
 
@@ -71,6 +98,13 @@ final class Card {
     var back: String
     var deck: Deck?
     var createdAt: Date
+
+    /// Optional image attached to the question side. Stored externally so the
+    /// SQLite row stays small.
+    @Attribute(.externalStorage) var frontImageData: Data? = nil
+
+    /// Optional image attached to the answer side.
+    @Attribute(.externalStorage) var backImageData: Data? = nil
 
     // FSRS scheduling fields
     var stability: Double
@@ -97,6 +131,8 @@ final class Card {
         self.back = back
         self.deck = deck
         self.createdAt = Date()
+        self.frontImageData = nil
+        self.backImageData = nil
         self.stability = 0
         self.difficulty = 0
         self.reps = 0
