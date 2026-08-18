@@ -12,6 +12,9 @@ targets:
           - "project.yml"
           - "codemagic.yaml"
           - "*.md"
+          - ".git"
+          - ".git/**"
+          - "build"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.abdelhalim.FlashForwardApp
