@@ -1,7 +1,9 @@
 import SwiftUI
 import SwiftData
 import UniformTypeIdentifiers
-
+extension URL: @retroactive Identifiable {
+    public var id: String { absoluteString }
+}
 struct DeckListView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: [SortDescriptor(\Deck.createdAt, order: .reverse)]) var decks: [Deck]
@@ -85,7 +87,7 @@ struct DeckListView: View {
                     importCSV(url: url)
                 }
             }
-            .sheet(item: $csvExportURL) { url in
+            .sheet(item: $csvExportURL, id: \.self) { url in
                 ShareSheet(items: [url])
             }
             .sheet(item: $deckToSchedule) { deck in
@@ -142,7 +144,7 @@ struct DeckListView: View {
                 if !ungrouped.isEmpty {
                     ForEach(ungrouped) { deck in
                         DeckRow(deck: deck) { selectedDeck = deck }
-                            .contextMenu(deckContextMenu(for: deck))
+                            .contextMenu { deckContextMenu(for: deck) }
                     }
                 }
 
@@ -152,7 +154,7 @@ struct DeckListView: View {
                         Section {
                             ForEach(folderDecks.sorted(by: { $0.createdAt > $1.createdAt })) { deck in
                                 DeckRow(deck: deck) { selectedDeck = deck }
-                                    .contextMenu(deckContextMenu(for: deck))
+                                    .contextMenu { deckContextMenu(for: deck) }
                             }
                         } header: {
                             HStack(spacing: 6) {
@@ -444,7 +446,7 @@ struct DeckDetailView: View {
         .sheet(isPresented: $showingSchedule) {
             ScheduleRevisionView(deck: deck)
         }
-        .sheet(item: $csvExportURL) { url in
+        .sheet(item: $csvExportURL, id: \.self) { url in
             ShareSheet(items: [url])
         }
         .fullScreenCover(isPresented: $showingReview) {
