@@ -1,0 +1,31 @@
+name: FlashForwardApp
+options:
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  FlashForwardApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: .
+        excludes:
+          - "project.yml"
+          - "codemagic.yaml"
+          - "*.md"
+          - ".git"
+          - ".git/**"
+          - "build"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.abdelhalim.FlashForwardApp
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: FlashForward
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_NSCalendarsUsageDescription: "FlashForward uses your calendar to schedule revision events with reminders for your decks."
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "FlashForward needs calendar access to create revision events with alarms for your decks."
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "FlashForward needs photo library access to attach images to your flashcards."
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "FlashForward can save exported CSV files to your photo library if needed."
+        INFOPLIST_KEY_NSUserNotificationsUsageDescription: "FlashForward sends local notifications to remind you of scheduled revisions."

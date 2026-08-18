@@ -1,0 +1,233 @@
+/* FlashForwardApp — English */
+
+/* MARK: - Common */
+"common.cancel" = "Cancel";
+"common.delete" = "Delete";
+"common.create" = "Create";
+"common.save" = "Save";
+"common.done" = "Done";
+"common.ok" = "OK";
+"common.edit" = "Edit";
+"common.rename" = "Rename";
+
+/* MARK: - Tabs */
+"tab.decks" = "Decks";
+"tab.cards" = "Cards";
+"tab.stats" = "Stats";
+"tab.settings" = "Settings";
+
+/* MARK: - Rating */
+"rating.again" = "Again";
+"rating.hard" = "Hard";
+"rating.good" = "Good";
+"rating.easy" = "Easy";
+
+/* MARK: - Card State */
+"state.new" = "New";
+"state.learning" = "Learning";
+"state.review" = "Review";
+"state.relearning" = "Relearning";
+"state.due" = "Due";
+
+/* MARK: - Themes */
+"theme.midnight" = "Midnight";
+"theme.ocean" = "Ocean";
+"theme.sunset" = "Sunset";
+"theme.forest" = "Forest";
+"theme.graphite" = "Graphite";
+"theme.light" = "Light";
+"theme.rose" = "Rose";
+"theme.aurora" = "Aurora";
+"theme.sand" = "Sand";
+"theme.slate" = "Slate";
+
+/* MARK: - Fonts */
+"font.rounded" = "Rounded";
+"font.serif" = "Serif";
+"font.mono" = "Monospaced";
+"font.standard" = "Standard";
+
+/* MARK: - Intervals */
+"interval.off" = "FSRS default";
+"interval.useCustom" = "Use custom interval";
+"interval.value" = "Value";
+"interval.unit" = "Unit";
+"interval.unit.minute" = "minute";
+"interval.unit.minutes" = "min";
+"interval.unit.hour" = "hour";
+"interval.unit.hours" = "hours";
+"interval.unit.day" = "day";
+"interval.unit.days" = "days";
+
+/* MARK: - Decks Screen */
+"decks.empty.title" = "No Decks Yet";
+"decks.empty.message" = "Create your first deck to start learning with spaced repetition powered by FSRS.";
+"decks.create" = "Create Deck";
+"decks.select" = "Select";
+"decks.selectAll" = "Select All";
+"decks.deselectAll" = "Deselect All";
+"decks.cards.count" = "%d cards";
+"decks.due.count" = "%d due";
+"decks.schedule" = "Schedule";
+"decks.delete.title" = "Delete Deck?";
+"decks.delete.message" = "This will permanently delete \"%@\" and all %d cards in it.";
+"decks.group.title" = "New Folder";
+"decks.group.placeholder" = "Folder name";
+"decks.group.message" = "Group the selected decks into a new folder. Each deck can belong to only one folder.";
+"decks.group.n" = "Group %d Decks";
+"decks.importCSV" = "Import CSV";
+"decks.exportAll" = "Export All as CSV";
+"decks.export" = "Export";
+"decks.manageFolders" = "Manage Folders";
+"decks.reset" = "Reset";
+"decks.reset.title" = "Reset Deck Schedule?";
+"decks.reset.message" = "This brings every card in \"%@\" back to due-now and clears its FSRS review history. All %d cards will be immediately available for review again. Card content and tags are preserved.";
+"decks.reset.action" = "Reset";
+"decks.reset.failed" = "Could not reset the deck. Please try again.";
+
+/* MARK: - Folders */
+"folders.title" = "Folders";
+"folders.name" = "Folder name";
+"folders.empty.title" = "No Folders";
+"folders.empty.message" = "Folders help you organize related decks. Assign a folder when creating or editing a deck.";
+"folders.rename.title" = "Rename Folder";
+"folders.delete.title" = "Delete Folder?";
+"folders.delete.message" = "Deleting \"%@\" will ungroup its %d decks. The decks and their cards will be kept.";
+"folders.decks.count" = "%d decks";
+"folders.cards.count" = "%d cards";
+"folders.due.count" = "%d due";
+
+/* MARK: - Deck Detail */
+"detail.due" = "Due";
+"detail.total" = "Total";
+"detail.new" = "New";
+"detail.reviewAll" = "Review All Cards";
+"detail.startReview" = "Start Review";
+"detail.cards" = "Cards";
+"detail.noCards" = "No cards yet";
+"detail.addCard" = "Add Card";
+
+/* MARK: - Add/Edit Deck */
+"deck.name" = "Deck Name";
+"deck.color" = "Color";
+"deck.folder" = "Folder";
+"deck.folder.none" = "None";
+"deck.newFolder" = "New Folder";
+"deck.rename" = "Rename Deck";
+"deck.new" = "New Deck";
+
+/* MARK: - Add/Edit Card */
+"card.front" = "Front";
+"card.back" = "Back";
+"card.frontPlaceholder" = "What do you want to remember?";
+"card.backPlaceholder" = "The answer or explanation...";
+"card.reviews" = "Reviews";
+"card.lapses" = "Lapses";
+"card.interval" = "Interval";
+"card.edit" = "Edit Card";
+"card.new" = "New Card";
+"card.tags" = "Tags";
+"card.tags.count" = "%d tags";
+"card.tags.placeholder" = "Add a tag…";
+"card.tags.suggestions" = "Suggestions";
+
+/* MARK: - Cards Tab */
+"cards.search" = "Search cards, decks, folders...";
+"cards.filter.all" = "All";
+"cards.filter.studied" = "Studied";
+"cards.filter.notStudied" = "Not Studied";
+"cards.filter.new" = "New";
+"cards.allDecks" = "All Decks";
+"cards.allFolders" = "Folders";
+"cards.empty" = "No cards match your search.";
+"cards.tags.all" = "All tags";
+
+/* MARK: - Import */
+"import.result.title" = "Import Complete";
+"import.result.message" = "Created %d folders, %d decks, and %d cards.";
+
+/* MARK: - CSV Separator (Task 2) */
+"csv.separator.title" = "Choose Separator";
+"csv.separator.description" = "Pick the field separator used in this file. The preview updates live.";
+"csv.separator.detected" = "Auto-detected: %@";
+"csv.separator.choose" = "Separator";
+"csv.separator.preview" = "Preview";
+"csv.separator.rows" = "%d rows";
+"csv.separator.noRows" = "No rows found with this separator. Try another one.";
+"csv.separator.emptyRow" = "(empty row — deck/folder only)";
+"csv.separator.import" = "Import";
+"csv.separator.readError" = "Could not read the selected file.";
+
+/* MARK: - Image Viewer */
+"image.unavailable" = "Image could not be loaded.";
+
+/* MARK: - Schedule */
+"schedule.title" = "Schedule Revision";
+"schedule.deck" = "Schedule a revision for \"%@\"";
+"schedule.date" = "Date & Time";
+"schedule.duration" = "Duration";
+"schedule.reminders" = "Reminders";
+"schedule.calendarAlarm" = "Calendar alarm";
+"schedule.localNotification" = "Local notification";
+"schedule.localNotification.desc" = "Also fire a local notification at the same time.";
+"schedule.addToCalendar" = "Add to iPhone Calendar";
+"schedule.create" = "Schedule";
+"schedule.success" = "Revision scheduled for %@.";
+"schedule.failure" = "Could not create the calendar event. Please try again.";
+"schedule.calendarDenied" = "Calendar Access Denied";
+"schedule.calendarDeniedMsg" = "Enable calendar access in Settings to create revision events.";
+"schedule.openSettings" = "Open Settings";
+"schedule.event.notes" = "Review %d cards in %@";
+"schedule.notification.body" = "Time to review %@";
+"schedule.info.cards" = "Cards";
+"schedule.info.due" = "Due";
+"schedule.info.when" = "When";
+
+/* MARK: - Settings */
+"settings.title" = "Settings";
+"settings.general" = "General";
+"settings.language" = "Language";
+"settings.language.english" = "English";
+"settings.language.french" = "French";
+"settings.language.note" = "Switching language updates the entire app instantly. No restart required.";
+"settings.display" = "Display";
+"settings.theme" = "Theme";
+"settings.font" = "Review Font";
+"settings.countdown" = "Countdown Timer";
+"settings.countdown.desc" = "Show a per-card countdown during review.";
+"settings.countdown.seconds" = "Duration";
+"settings.review" = "Review";
+"settings.intervals" = "Custom Intervals";
+"settings.intervals.desc" = "Set the exact time before a card returns for each rating. Toggle a rating on to override the FSRS default.";
+"settings.reset" = "Reset to Defaults";
+"settings.buttonOrder" = "Review Buttons Order";
+"settings.buttonOrder.desc" = "Reorder the four rating buttons shown after revealing an answer. The chosen order is applied on the review screen.";
+"settings.buttonOrder.reset" = "Reset Order";
+"settings.about" = "About";
+"settings.about.version" = "Version";
+
+/* MARK: - Review */
+"review.tapToReveal" = "Tap card to reveal answer";
+"review.howWell" = "How well did you remember?";
+"review.sessionComplete" = "Session Complete!";
+"review.cardsReviewed" = "You reviewed %d cards";
+"review.allCaughtUp" = "All Caught Up!";
+"review.allCaughtUpMsg" = "No cards are due in this deck right now. Come back later or add new cards.";
+"review.question" = "Question";
+"review.answer" = "Answer";
+"review.countdown" = "Countdown";
+
+/* MARK: - Stats */
+"stats.title" = "Statistics";
+"stats.dueToday" = "Due Today";
+"stats.newCards" = "New Cards";
+"stats.totalCards" = "Total Cards";
+"stats.decks" = "Decks";
+"stats.reviewPerformance" = "Review Performance";
+"stats.retention" = "Retention";
+"stats.totalReviews" = "Total Reviews";
+"stats.dueTomorrow" = "Due Tomorrow";
+"stats.recentActivity" = "Recent Activity";
+"stats.noReviews" = "No reviews yet";
+"stats.error.title" = "Statistics Unavailable";
+"stats.error.message" = "Something went wrong while loading your statistics. The rest of the app keeps working — try reopening this tab.";
