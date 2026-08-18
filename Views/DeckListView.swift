@@ -87,7 +87,7 @@ struct DeckListView: View {
                     importCSV(url: url)
                 }
             }
-            .sheet(item: $csvExportURL, id: \.self) { url in
+            .sheet(item: $csvExportURL) { url in
                 ShareSheet(items: [url])
             }
             .sheet(item: $deckToSchedule) { deck in
@@ -446,7 +446,7 @@ struct DeckDetailView: View {
         .sheet(isPresented: $showingSchedule) {
             ScheduleRevisionView(deck: deck)
         }
-        .sheet(item: $csvExportURL, id: \.self) { url in
+        .sheet(item: $csvExportURL) { url in
             ShareSheet(items: [url])
         }
         .fullScreenCover(isPresented: $showingReview) {
